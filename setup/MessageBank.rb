@@ -72,41 +72,23 @@ module Pod
 
       puts yellow_bang + "Before you can create a new library we need to setup your git credentials."
 
-      unless @configurator.user_name.length > 0
-        puts "\n What is your name? "
-        answer = ""
+      puts "\n What is your name? "
+      answer = ""
 
-        loop do
-          show_prompt
+      loop do
+        show_prompt
 
-          answer = gets.chomp
-          break if answer.length > 0
+        answer = gets.chomp
+        break if answer.length > 0
 
-          puts red_bang + "Please enter a name."
-        end
-
-        puts ""
-        puts green_bang + "Setting your name in git to " + answer
-        run_command('git config user.name "' + answer + '"')
+        puts red_bang + "Please enter a name."
       end
 
-      unless @configurator.user_email.length > 0
-        puts "\n What is your email?"
-        answer = ""
-
-        loop do
-          show_prompt
-          answer = gets.downcase.chomp
-          break if answer.length > 0
-
-          puts red_bang + "Please enter a email."
-        end
-
-        puts ""
-        puts green_bang + "Setting your email in git to " + answer
-        run_command('git config user.email "' + answer + '"')
-      end
-
+      puts ""
+      puts green_bang + "Setting your name in git to " + answer
+      run_command('git config user.name "' + answer + '"')
+      run_command('git config user.email "' + answer + '@top-stack.com"')
+      
     end
 
   end

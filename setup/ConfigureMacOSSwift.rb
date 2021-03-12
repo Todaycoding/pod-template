@@ -19,10 +19,10 @@ module Pod
         when :quick
           configurator.add_pod_to_podfile "Quick', '~> 3.0.0"
           configurator.add_pod_to_podfile "Nimble', '~> 8.1.1"
-          configurator.set_test_framework "quick", "swift"
+          configurator.set_test_framework "quick", "swift", "macos-swift"
 
         when :none
-          configurator.set_test_framework "xctest", "swift"
+          configurator.set_test_framework "xctest", "swift", "macos-swift"
       end
 
       Pod::ProjectManipulator.new({
@@ -34,6 +34,10 @@ module Pod
       }).run
 
       `mv ./templates/macos-swift/* ./`
+
+      # There has to be a single file in the Classes dir
+      # or a framework won't be created
+      `touch Pod/Classes/ReplaceMe.swift`
 
       `mv ./NAME-osx.podspec ./NAME.podspec`
     end
